@@ -12,6 +12,7 @@ import React, { useState } from "react";
 import useStyles from "./styles";
 import moment from "moment";
 import {
+  Edit,
   Delete,
   MoreHorizRounded,
   ThumbUpAlt,
@@ -95,23 +96,6 @@ const Post = ({ post, setCurrentId }) => {
           </Typography>
         </div>
       </ButtonBase>
-      {(user?.result?.sub === post?.creator ||
-        user?.result?._id === post?.creator) && (
-        <div className={classes.overlay2}>
-          <Button
-            style={{ color: "black" }}
-            size="small"
-            onClick={() => setCurrentId(post._id)}
-          >
-            <MoreHorizRounded fontSize="medium" />
-          </Button>
-        </div>
-      )}
-      <div className={classes.details}>
-        <Typography variant="body2" color="textSecondary">
-          {post.tags.map((tag) => `#${tag} `)}
-        </Typography>
-      </div>
       <Typography className={classes.title} variant="h5" gutterBottom>
         {post.title}
       </Typography>
@@ -120,7 +104,6 @@ const Post = ({ post, setCurrentId }) => {
           {post.message}
         </Typography>
       </CardContent>
-
       <CardActions className={classes.cardActions}>
         <Button
           size="small"
@@ -132,15 +115,26 @@ const Post = ({ post, setCurrentId }) => {
         </Button>
         {(user?.result?.sub === post?.creator ||
           user?.result?._id === post?.creator) && (
-          <Button
-            size="small"
-            color="primary"
-            onClick={() => dispatch(deletePost(post._id))}
-          >
-            <Delete fontSize="small" />
-            delete
-          </Button>
-        )}
+            <Button
+              size="small"
+              color="primary"
+              onClick={() => setCurrentId(post._id)}
+            >
+              <Edit fontSize="small" />
+              Edit
+            </Button>
+          )}
+        {(user?.result?.sub === post?.creator ||
+          user?.result?._id === post?.creator) && (
+            <Button
+              size="small"
+              color="primary"
+              onClick={() => dispatch(deletePost(post._id))}
+            >
+              <Delete fontSize="small" />
+              delete
+            </Button>
+          )}
       </CardActions>
     </Card>
   );

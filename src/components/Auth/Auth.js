@@ -15,7 +15,6 @@ import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { signin, signup } from "../../actions/auth";
 import jwtDecode from "jwt-decode";
-import { GoogleLogin } from "@react-oauth/google";
 
 const intialState = {
   firstName: "",
@@ -109,7 +108,7 @@ const Auth = () => {
             {isSignUp && (
               <Input
                 name="confirmPassword"
-                label="Repet Password"
+                label="Repeat Password"
                 handleChange={handleChange}
                 type="password"
               />
@@ -124,15 +123,6 @@ const Auth = () => {
           >
             {isSignUp ? "Sign Up" : "Sign In"}
           </Button>
-          <Grid container justifyContent="center">
-            <GoogleLogin
-              onSuccess={loginSuccess}
-              onError={() => {
-                console.log("Login Failed");
-              }}
-              width="100%"
-            />
-          </Grid>
           <Grid container justifyContent="center">
             <Grid>
               <Button onClick={switchMode}>

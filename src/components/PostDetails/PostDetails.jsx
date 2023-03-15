@@ -24,13 +24,6 @@ const PostDetails = () => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [id]);
 
-  useEffect(() => {
-    if (post) {
-      dispatch(getPostBySearch({ search: "none", tags: post?.tags.join(",") }));
-    }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [post]);
-
   if (!post) return null;
 
   const openPost = (_id) => navigate(`/posts/${_id}`);
@@ -62,24 +55,12 @@ const PostDetails = () => {
           <Typography variant="h2" component="h3">
             {post.title}
           </Typography>
-          <Typography
-            gutterBottom
-            variant="h6"
-            color="textSecondary"
-            component="h2"
-          >
-            {post.tags.map((tag) => `#${tag} `)}
-          </Typography>
           <Typography gutterBottom variant="body1" component="p">
             {post.message}
           </Typography>
           <Typography variant="h6">Created by: {post.name}</Typography>
           <Typography variant="body1">
             {moment(post.createdAt).fromNow()}
-          </Typography>
-          <Divider style={{ margin: "20px 0" }} />
-          <Typography variant="body1">
-            <strong>Realtime Chat - coming soon!</strong>
           </Typography>
           <Divider style={{ margin: "20px 0" }} />
           <CommentSection post={post} />

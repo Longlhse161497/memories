@@ -12,11 +12,10 @@ import { useDispatch } from "react-redux";
 import { getPostBySearch } from "../../actions/posts";
 import useStyles from "./styles";
 
-import From from "../Form/From";
+import Form from "../Form/Form";
 import Posts from "../Posts/Posts";
 import Paginations from "../Paginations";
 import { useLocation, useNavigate } from "react-router-dom";
-import ChipInput from "material-ui-chip-input";
 
 function useQuery() {
   return new URLSearchParams(useLocation().search);
@@ -35,10 +34,10 @@ const Home = () => {
   const [tags, setTags] = useState([]);
 
   const searchPost = () => {
-    if (search.trim() || tags) {
-      dispatch(getPostBySearch({ search, tags: tags.join(",") }));
+    if (search.trim()) {
+      dispatch(getPostBySearch({ search }));
       navigate(
-        `/posts/search?searchQuery=${search || "none"}&tags=${tags.join(",")}`
+        `/posts/search?searchQuery=${search || "none"}`
       );
     } else {
       navigate("/");
@@ -50,10 +49,6 @@ const Home = () => {
       searchPost();
     }
   };
-
-  const handleAdd = (tag) => setTags([...tags, tag]);
-  const handleDelete = (tagToDelete) =>
-    setTags(tags.filter((tag) => tag !== tagToDelete));
 
   return (
     <Grow in>
@@ -83,14 +78,6 @@ const Home = () => {
                 onChange={(e) => setSearch(e.target.value)}
                 onKeyPress={handleKeyPress}
               />
-              <ChipInput
-                styles={{ margin: "10px 0" }}
-                value={tags}
-                onAdd={handleAdd}
-                onDelete={handleDelete}
-                label="Search Tags"
-                variant="outlined"
-              />
               <Button
                 onClick={searchPost}
                 className={classes.searchButton}
@@ -100,8 +87,8 @@ const Home = () => {
                 Search
               </Button>
             </AppBar>
-            <From currentId={currentId} setCurrentId={setCurrentId} />
-            {!searchQuery && !tags.length && (
+            <Form currentId={currentId} setCurrentId={setCurrentId} />
+            {!searchQuery && (
               <Paper elevation={6} className={classes.pagination}>
                 <Paginations page={page} />
               </Paper>

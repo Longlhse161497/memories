@@ -6,7 +6,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { createPost, updatePost } from "../../actions/posts";
 import { useNavigate } from "react-router-dom";
 
-const From = ({ currentId, setCurrentId }) => {
+const Form = ({ currentId, setCurrentId }) => {
   const naviagate = useNavigate();
   const [postData, setPostData] = useState({
     // creator: "",
@@ -72,16 +72,6 @@ const From = ({ currentId, setCurrentId }) => {
         <Typography variant="h6">
           {currentId ? "Editing " : "Creating "} a Memory
         </Typography>
-        {/* <TextField
-          name="creator"
-          variant="outlined"
-          label="Creator"
-          fullWidth
-          value={postData.creator}
-          onChange={(e) =>
-            setPostData({ ...postData, creator: e.target.value })
-          }
-        /> */}
         <TextField
           name="title"
           variant="outlined"
@@ -100,16 +90,6 @@ const From = ({ currentId, setCurrentId }) => {
           value={postData.message}
           onChange={(e) =>
             setPostData({ ...postData, message: e.target.value })
-          }
-        />
-        <TextField
-          name="tags"
-          variant="outlined"
-          label="Tags (coma separated)"
-          fullWidth
-          value={postData.tags}
-          onChange={(e) =>
-            setPostData({ ...postData, tags: e.target.value.split(",") })
           }
         />
         <div className={classes.fileInput}>
@@ -145,4 +125,4 @@ const From = ({ currentId, setCurrentId }) => {
   );
 };
 
-export default From;
+export default Form;
